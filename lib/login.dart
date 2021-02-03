@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  String inputName = '';
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -28,7 +35,7 @@ class Login extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0),
                       child: Text(
-                        'Back!',
+                        inputName == '' ? 'Back!' : 'Back, $inputName!',
                         style: TextStyle(
                           fontSize: 40.0,
                           fontWeight: FontWeight.w600,
@@ -45,6 +52,14 @@ class Login extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     TextField(
+                      maxLength: 8,
+                      onChanged: (text) {
+                        if (text.length <= 8) {
+                          setState(() {
+                            inputName = text;
+                          });
+                        }
+                      },
                       decoration: InputDecoration(
                         labelText: 'Name',
                         labelStyle: TextStyle(
